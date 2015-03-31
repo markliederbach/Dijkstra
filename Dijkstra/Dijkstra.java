@@ -13,13 +13,23 @@ public interface Dijkstra {
 
 		public String name;
 		public final long id;
+		private Object data;
 		public ArrayList<Edge> neighbors = new ArrayList<Edge>();
 		public double minDistance = Double.POSITIVE_INFINITY;
 		public Node previous;
 		
 		public Node(String name){
 			this.name = name;
-			this.id = NEXT_ID.getAndIncrement();	
+			this.id = NEXT_ID.getAndIncrement();
+			this.data = null;
+		}
+		public Node(String name, Object data){
+			this.name = name;
+			this.id = NEXT_ID.getAndIncrement();
+			this.data = data;
+		}
+		public Object getObject(){
+			return this.data;
 		}
 		public String toString(){
 			return this.name;
