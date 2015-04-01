@@ -99,6 +99,19 @@ public class TestDriver implements Dijkstra{
 	//Attempt to change source to M (even though it's not in the map)
 	System.out.println(test.changeSource(newNode));//returns false
 	
+	
+	
+	
+	//How to update a Node's Object data through Dijkstra
+	//	This can be useful if you want to append more data to a map node
+	String str = "Hello, you!";
+	U.updateObject(str);
+	//U now contains this string and will retain it.
+	System.out.println(U.getObject());
+	
+	
+	
+	
 	}//End main
 
 	public static void printNodeArrayList(ArrayList<Node> in){

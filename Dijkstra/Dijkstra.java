@@ -31,6 +31,10 @@ public interface Dijkstra {
 		public Object getObject(){
 			return this.data;
 		}
+		public boolean updateObject(Object newData){
+			this.data = newData;
+			return true;
+		}
 		public String toString(){
 			return this.name;
 		}
