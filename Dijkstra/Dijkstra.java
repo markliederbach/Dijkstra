@@ -49,7 +49,7 @@ public interface Dijkstra {
 			//Returns: 0 if equal, <0 if arg0 is greater, >0 if arg0 is lesser
 			return Double.compare(this.minDistance, arg0.minDistance);
 		}
-		public boolean addNeighbor(Node neigh, double weight){
+		private boolean addNeighbor(Node neigh, double weight){
 			if(this.neighbors != null){
 			for(Edge n: this.neighbors){
 				if(n.toNode.id == neigh.id){
@@ -61,6 +61,23 @@ public interface Dijkstra {
 				return true;
 			
 			
+		}
+		
+		//public-facing methods to add neighbors
+		public boolean uniformEdge(Node toNode, double weight){
+			if(!this.addNeighbor(toNode, weight)){
+				return false;
+			}
+			return toNode.addNeighbor(this, weight);
+		}
+		public boolean nonUniformEdge(Node Node1, double weight01, double weight10){
+			if(!this.addNeighbor(Node1, weight01)){
+				return false;
+			}
+			return Node1.addNeighbor(this, weight10);
+		}
+		public boolean singleEdge(Node toNode, double weight){
+			return this.addNeighbor(toNode, weight);
 		}
 		
 	}//End Node Class
@@ -80,6 +97,7 @@ public interface Dijkstra {
 	public class RunDijkstra{//Allows multiple path computations from a set source
 		public final ArrayList<Node> nodes;	//ArrayList of Nodes (each contain their own ArrayList of neighbors)
 		public Node source;
+		private double cost = Double.NEGATIVE_INFINITY; //stores the minimum path cost from the most recent findPath execution
 		
 		public RunDijkstra(ArrayList<Node> nodes, Node source){
 			this.nodes = nodes;
@@ -148,6 +166,7 @@ public interface Dijkstra {
 					
 				}
 				if(curr.id == target.id){
+					this.cost = curr.minDistance;//store this cost
 					break;
 				}
 				
@@ -178,6 +197,15 @@ public interface Dijkstra {
 			for(Node n: this.nodes){
 				n.minDistance = Double.POSITIVE_INFINITY;
 				n.previous = null;
+			}
+		}
+		
+		public double getCost(){
+			if(this.cost == Double.NEGATIVE_INFINITY){
+				System.out.println("Run Dijkstra.findPath() to get a path cost");
+				return (Double) null;
+			}else{
+				return this.cost;
 			}
 		}
 		

@@ -33,31 +33,38 @@ public class TestDriver implements Dijkstra{
 	Node Z = new Node("Z");
 	
 	//Create edges
-	U.addNeighbor(X, 5);
-	U.addNeighbor(W, 3);
-	U.addNeighbor(V, 7);
 	
-	X.addNeighbor(U, 5);
-	X.addNeighbor(W, 4);
-	X.addNeighbor(Y, 7);
-	X.addNeighbor(Z, 9);
+	//Multiple ways of adding neighbors
+	//1. Manual define each edge
+	U.singleEdge(X, 5);
+	X.singleEdge(U, 5);
+	W.singleEdge(V, 3);
+	V.singleEdge(W, 3);
 	
-	W.addNeighbor(U, 3);
-	W.addNeighbor(V, 3);
-	W.addNeighbor(Y, 8);
-	W.addNeighbor(X, 4);
+	//2. Create two edges at once, each is equally weighted
+	U.uniformEdge(W, 3);
+	U.uniformEdge(V, 7);
+	X.uniformEdge(Y, 7);
+	X.uniformEdge(Z, 9);
+	W.uniformEdge(Y, 8);
+	V.uniformEdge(Y, 4);
+	Y.uniformEdge(Z, 2);
 	
-	V.addNeighbor(U, 7);
-	V.addNeighbor(Y, 4);
-	V.addNeighbor(W, 3);
+	//3. Create two edges between nodes that are not equal
+	X.nonUniformEdge(W, 4, 4); //first weight: X to W; second weight: W to X
 	
-	Y.addNeighbor(X, 7);
-	Y.addNeighbor(W, 8);
-	Y.addNeighbor(V, 4);
-	Y.addNeighbor(Z, 2);
 	
-	Z.addNeighbor(X, 9);
-	Z.addNeighbor(Y, 2);
+	
+	
+	
+
+	
+	
+	
+	
+
+	
+	
 	
 	
 	//Now that all nodes are defined and have relationships to other nodes, make an ArrayList
